@@ -21,5 +21,8 @@ public class Sum {
         int b = Integer.parseInt(input4);
         //Integer.parseInt() -> 정수형으로 변환
         System.out.printf("%d + %d = %d\n", a, b, a+b);
+        s1.close();
+        s2.close();
+        //scanner를 닫는 명령어. 표준입출력에선 사용하지 않아도 무방하나 쓰는 습관을 들이자.
     }
 }
