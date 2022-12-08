@@ -16,23 +16,33 @@ public class Calendar {
         System.out.println("1  2  3  4  5  6  7");
         System.out.println("8  9  10 11 12 13 14");
         System.out.println("15 16 17 18 19 20 21");
-        System.out.println("22 23 24 25 26 27 28");
+        System.out.println("22 23 24 25 26 27 28\n");
 
         /*입력받은 숫자에 해당하는 달의 최대 일수를 출력하는 프로그램*/
 
         //배열&함수이용
-        System.out.print("Enter the number to repeat: ");
+        String prompt = ("> ");
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        for (int i = 1; i <= n ; i++) {
-            System.out.print("Enter the Month: ");
+        Calendar cal = new Calendar();
+        while (true) {
+            System.out.println("Enter the Month");
+            System.out.print(prompt);
             int m = scanner.nextInt();
-            Calendar cal = new Calendar();
-            System.out.printf("The month(%d) has %ddays\n", m, cal.getMaxDays(m) );
+            if(m == -1){
+                System.out.println("Done");
+                break; //loop에서 탈출함
+            }
+            if(m > 12){
+                System.out.println("Enter the number less than 12");
+                continue; //loop의 처음으로 돌아감
+            }
+            System.out.printf("The month(%d) has %ddays\n", m, cal.getMaxDays(m));
+
         }
-        System.out.println("Done");
         scanner.close();
-//        //조건문
+
+
+          //조건문
 //        if((m ==1) || (m == 3) ||  (m == 5) ||  (m == 7) ||  (m == 8) ||  (m == 10) || (m == 12)){
 //            System.out.println("The month has 31days");
 //        }
