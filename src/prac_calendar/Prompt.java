@@ -61,23 +61,16 @@ public class Prompt {
         String plan = cal.searchPlan(date);
         System.out.println(plan);
     }
-
     public void cmdRegister(Scanner scanner, Calendar cal) throws ParseException {
         System.out.println("[Register a new event]");
         System.out.println("Enter the date. [yyyy-MM-dd]");
         System.out.print(PROMPT_CMD);
         String date = scanner.next();
         String text = "";
-        System.out.println("Enter the new event. (put '.' end of the sentence)");
+        scanner.nextLine();
+        System.out.println("Enter the new event.");
         System.out.print(PROMPT_CMD);
-        while(true){
-            String word = scanner.next();
-            text += word + " ";
-            if (word.endsWith(".")){
-                break;
-            }
-        }
-
+        text = scanner.nextLine();
         cal.registerPlan(date, text);
 
     }
