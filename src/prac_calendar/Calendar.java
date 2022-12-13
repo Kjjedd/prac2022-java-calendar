@@ -1,7 +1,5 @@
 package prac_calendar;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -44,26 +42,24 @@ public class Calendar {
         return weekday;
     }
 
-    private HashMap<Date, String> planMap;
+    private HashMap<Date, PlanItem> planMap;
 
     public Calendar(){
-       planMap = new HashMap<Date, String>();
+       planMap = new HashMap<Date, PlanItem>();
    }
 
     /**
      * @param strDate: ex) "2022-10-07
      * @param plan: ex) "Today is Birthday"
-     * @throws ParseException
      */
 
-    public void registerPlan(String strDate, String plan) throws ParseException{
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
-        planMap.put(date, plan);
+    public void registerPlan(String strDate, String plan){
+        PlanItem p = new PlanItem(strDate, plan);
+        planMap.put(p.getPlanDate(), p);
     }
-    public String searchPlan(String strDate) throws ParseException {
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
-        String plan = planMap.get(date);
-        return plan;
+    public PlanItem searchPlan(String strDate) {
+        Date date = PlanItem.getDateFromString(strDate);
+        return planMap.get(date);
     }
 
     public void printCalendar(int year, int month) {

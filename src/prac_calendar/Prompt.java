@@ -13,21 +13,32 @@ public class Prompt {
 
         Scanner scanner = new Scanner(System.in);
         Calendar cal = new Calendar();
+        boolean isLoop = true;
 
-
-        while (true) {
+        while (isLoop) {
             System.out.println("Enter (1, 2, 3, h, q)");
             System.out.print(PROMPT_CMD);
             String cmd = scanner.next();
-            if(cmd.equals("1")) cmdRegister(scanner, cal);
-            else if(cmd.equals("2")) cmdSearch(scanner,cal);
-            else if(cmd.equals("3")) cmdCalendar(scanner, cal);
-            else if(cmd.equals("h")) cmdMenu();
-            else if(cmd.equals("q")) {
-                System.out.println("DONE");
-                break;
+            switch (cmd){
+                case "1":
+                    cmdRegister(scanner, cal);
+                    break;
+                case "2":
+                    cmdSearch(scanner, cal);
+                    break;
+                case "3":
+                    cmdCalendar(scanner, cal);
+                    break;
+                case "h":
+                    cmdMenu();
+                    break;
+                case "q":
+                    System.out.println("Done");
+                    isLoop = false;
+                    break;
             }
         }
+        scanner.close();
     }
     public void cmdMenu(){
         System.out.println("+---------------------------+");
@@ -53,15 +64,19 @@ public class Prompt {
         cal.printCalendar(year, month);
     }
 
-    private void cmdSearch(Scanner scanner, Calendar cal) throws ParseException {
+    private void cmdSearch(Scanner scanner, Calendar cal){
         System.out.println("[Schedule Search]");
         System.out.println("Enter the date. [yyyy-MM-dd]");
         System.out.print(PROMPT_CMD);
         String date = scanner.next();
-        String plan = cal.searchPlan(date);
-        System.out.println(plan);
+        PlanItem plan = cal.searchPlan(date);
+        if(plan != null){
+            System.out.println(plan.detail);
+        }else{
+            System.out.println("No Schedule");
+        }
     }
-    public void cmdRegister(Scanner scanner, Calendar cal) throws ParseException {
+    public void cmdRegister(Scanner scanner, Calendar cal){
         System.out.println("[Register a new event]");
         System.out.println("Enter the date. [yyyy-MM-dd]");
         System.out.print(PROMPT_CMD);
@@ -72,7 +87,6 @@ public class Prompt {
         System.out.print(PROMPT_CMD);
         text = scanner.nextLine();
         cal.registerPlan(date, text);
-
     }
     public static void main(String[] args) throws ParseException {
         //셀 실행
