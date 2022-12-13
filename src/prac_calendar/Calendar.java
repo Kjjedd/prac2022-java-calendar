@@ -1,10 +1,9 @@
 package prac_calendar;
-/**
- * 월을 입력하면 해당월의 달력을 출력한다.
- * 1일은 일요일로 정해도 무방하다.
- * -1을 입력받기 전까지 반복 입력받는다.
- * 프롬프트를 출력한다.
- */
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Calendar {
     private static final int[] MAX_DAYS = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -27,7 +26,7 @@ public class Calendar {
 
     private int getWeekday(int year, int month, int day) {
         int standardYear = 1970;
-        final int STANDARD_WEEKDAY= 3; //(1st.Jan.1970: Thursday)
+        final int STANDARD_WEEKDAY= 4; //(1st.Jan.1970: Thursday)
 
         int count = 0;
 
@@ -40,9 +39,31 @@ public class Calendar {
             count += delta;
         }
 
-        count += day;
+        count += day - 1 ;
         int weekday = (count+STANDARD_WEEKDAY) % 7;
         return weekday;
+    }
+
+    private HashMap<Date, String> planMap;
+
+    public Calendar(){
+       planMap = new HashMap<Date, String>();
+   }
+
+    /**
+     * @param strDate: ex) "2022-10-07
+     * @param plan: ex) "Today is Birthday"
+     * @throws ParseException
+     */
+
+    public void registerPlan(String strDate, String plan) throws ParseException{
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+        planMap.put(date, plan);
+    }
+    public String searchPlan(String strDate) throws ParseException {
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+        String plan = planMap.get(date);
+        return plan;
     }
 
     public void printCalendar(int year, int month) {
